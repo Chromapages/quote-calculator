@@ -1,9 +1,10 @@
-﻿"use client";
+"use client";
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { calculateQuote, type QuoteInput } from "../lib/pricing";
+import { DownloadQuote } from "../components/DownloadQuote";
 
 type QuoteFormValues = QuoteInput & {
   contactName: string;
@@ -159,16 +160,18 @@ export default function Page() {
   const timeline = watch("timeline");
   const location = watch("location");
 
+  const currentRequest: QuoteInput = useMemo(() => ({
+    siteType: siteType ?? "business",
+    pageCount: Number.isFinite(pageCount) ? (pageCount as number) : 1,
+    features: Array.isArray(features) ? features : [],
+    designLevel: designLevel ?? "template",
+    timeline: timeline ?? "standard",
+    location: location ?? "us",
+  }), [siteType, pageCount, features, designLevel, timeline, location]);
+
   const quote = useMemo(() => {
-    return calculateQuote({
-      siteType: siteType ?? "business",
-      pageCount: Number.isFinite(pageCount) ? (pageCount as number) : 1,
-      features: Array.isArray(features) ? features : [],
-      designLevel: designLevel ?? "template",
-      timeline: timeline ?? "standard",
-      location: location ?? "us",
-    });
-  }, [siteType, pageCount, features, designLevel, timeline, location]);
+    return calculateQuote(currentRequest);
+  }, [currentRequest]);
 
   const selectedSite = siteTypes.find((item) => item.value === siteType);
   const selectedDesign = designLevels.find((item) => item.value === designLevel);
@@ -492,6 +495,14 @@ export default function Page() {
                           <p className="mt-2 text-sm text-[#4c5162]">
                             We will follow up within one business day with a tailored proposal.
                           </p>
+                          <div className="mt-6">
+                            <DownloadQuote
+                              request={currentRequest}
+                              breakdown={quote.breakdown}
+                              min={quote.min}
+                              max={quote.max}
+                            />
+                          </div>
                         </div>
                       ) : (
                         <>

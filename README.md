@@ -9,7 +9,7 @@
 - [x] Implement Pricing Engine (Phase 1)
 - [x] Create Quote Form Component (Multi-step UI)
 - [x] Connect UI to Pricing Engine
-- [ ] Add PDF Generation
+- [x] Add PDF Generation
 
 ## Setup
 ```bash
