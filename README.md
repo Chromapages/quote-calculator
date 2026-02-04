@@ -10,6 +10,7 @@
 - [x] Create Quote Form Component (Multi-step UI)
 - [x] Connect UI to Pricing Engine
 - [x] Add PDF Generation
+- [x] Implement Lead Capture (Firestore)
 
 ## Setup
 ```bash
