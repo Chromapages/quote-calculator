@@ -1,6 +1,5 @@
-import React from 'react';
+import { QuoteBreakdown, QuoteInput } from '../lib/pricing';
 import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
-import { QuoteBreakdown, QuoteRequest } from '../lib/pricing';
 
 // Register standard fonts
 Font.register({
@@ -89,11 +88,13 @@ const styles = StyleSheet.create({
 });
 
 interface QuotePDFProps {
-  request: QuoteRequest;
+  request: QuoteInput;
   breakdown: QuoteBreakdown;
+  min: number;
+  max: number;
 }
 
-export const QuotePDF = ({ request, breakdown }: QuotePDFProps) => (
+export const QuotePDF = ({ request, breakdown, min, max }: QuotePDFProps) => (
   <Document>
     <Page size="A4" style={styles.page}>
       <View style={styles.header}>
@@ -159,8 +160,8 @@ export const QuotePDF = ({ request, breakdown }: QuotePDFProps) => (
         )}
 
         <View style={styles.totalRow}>
-          <Text style={styles.totalLabel}>Estimated Total</Text>
-          <Text style={styles.totalValue}>${breakdown.total.toLocaleString()}</Text>
+          <Text style={styles.totalLabel}>Estimated Range</Text>
+          <Text style={styles.totalValue}>${min.toLocaleString()} - ${max.toLocaleString()}</Text>
         </View>
       </View>
 

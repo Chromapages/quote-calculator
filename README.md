@@ -7,8 +7,6 @@
 - [x] Initialize Next.js 14 project (TypeScript, Tailwind, App Router)
 - [x] Install dependencies (Tailwind, shadcn/ui, Framer Motion)
 - [x] Implement Pricing Engine (Phase 1)
-
-## Next Steps
 - [x] Create Quote Form Component (Multi-step UI)
 - [x] Connect UI to Pricing Engine
 - [ ] Add PDF Generation
