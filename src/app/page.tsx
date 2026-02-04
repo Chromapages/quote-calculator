@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { calculateQuote, type QuoteInput } from "../lib/pricing";
 import { DownloadQuote } from "../components/DownloadQuote";
+import { saveQuote } from "../lib/quotes";
 
 type QuoteFormValues = QuoteInput & {
   contactName: string;
@@ -206,7 +207,12 @@ export default function Page() {
     setStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const onSubmit = () => {
+  const onSubmit = async (data: QuoteFormValues) => {
+    // Save lead to Firestore
+    await saveQuote({
+      ...data,
+      quoteResult: quote,
+    });
     setSubmitted(true);
   };
 
