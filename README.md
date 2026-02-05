@@ -12,6 +12,11 @@
 - [x] Add PDF Generation
 - [x] Implement Lead Capture (Firestore)
 
+## Next Steps (Post-Launch)
+- [ ] Connect to GoHighLevel via Webhook (Zapier/Make)
+- [ ] Add Admin Dashboard for viewing quotes
+- [ ] Implement A/B testing for pricing tiers
+
 ## Setup
 ```bash
 cd quote-calculator
