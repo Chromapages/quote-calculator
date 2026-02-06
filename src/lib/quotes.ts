@@ -1,4 +1,4 @@
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, type FieldValue } from "firebase/firestore";
 import { db } from "./firebase";
 import { QuoteBreakdown, QuoteInput } from "./pricing";
 
@@ -11,7 +11,7 @@ export type SavedQuote = QuoteInput & {
     max: number;
     breakdown: QuoteBreakdown;
   };
-  createdAt: any;
+  createdAt: FieldValue;
 };
 
 export async function saveQuote(data: Omit<SavedQuote, "createdAt">) {

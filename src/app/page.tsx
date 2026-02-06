@@ -6,6 +6,13 @@ import { useForm } from "react-hook-form";
 import { calculateQuote, type QuoteInput } from "../lib/pricing";
 import { DownloadQuote } from "../components/DownloadQuote";
 import { saveQuote } from "../lib/quotes";
+import { sendToGHL } from "../lib/ghl";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Web Build Quote Calculator | Chromapages",
+  description: "Instant, transparent estimates for your next web project. Get a detailed breakdown in minutes.",
+};
 
 type QuoteFormValues = QuoteInput & {
   contactName: string;
@@ -213,6 +220,21 @@ export default function Page() {
       ...data,
       quoteResult: quote,
     });
+
+    // Send lead to GoHighLevel
+    await sendToGHL({
+      ...quote.breakdown,
+      total: quote.min, // Using min estimate as the deal value
+      tier: data.designLevel,
+      features: data.features,
+      id: "quote-" + Date.now(),
+      userInfo: {
+        name: data.contactName,
+        email: data.email,
+        phone: "", // Not collected in this form version
+      }
+    });
+
     setSubmitted(true);
   };
 
